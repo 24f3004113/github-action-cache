@@ -1,0 +1,27 @@
+name: Cache Demo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Prime cache
+        id: cache-step
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: cache-c828268
+
+      - name: prime-cache-c828268
+        run: echo "Cache hit? ${{ steps.cache-step.outputs.cache-hit }}"
+
+      - name: Install dependencies
+        run: npm install
